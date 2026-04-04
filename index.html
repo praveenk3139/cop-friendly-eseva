@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cop Friendly e-Seva</title>
+
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:linear-gradient(to right, #0f2027, #203a43, #2c5364);
+color:white;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 60px;
+background:#000000;
+box-shadow:0 4px 10px rgba(0, 0, 0, 0.53);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#ffffff;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-size:16px;
+transition:0.3s;
+}
+
+.nav a:hover{
+color:#0ca678;
+}
+
+/* MAIN SECTION */
+
+.main{
+display:flex;
+height:80vh;
+align-items:center;
+padding:60px;
+}
+
+/* LEFT */
+
+.left{
+width:55%;
+}
+
+.left h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.left p{
+font-size:18px;
+color:#dcdcdc;
+line-height:1.6;
+}
+
+/* RIGHT LOGIN BOX */
+
+.right{
+width:45%;
+display:flex;
+justify-content:center;
+}
+.container{
+width:350px;
+padding:40px;
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+text-align:center;
+}
+
+.container h2{
+margin-bottom:25px;
+}
+
+.btn{
+display:block;
+padding:12px;
+margin:12px 0;
+border-radius:8px;
+text-decoration:none;
+color:white;
+font-size:16px;
+transition:0.3s;
+}
+
+.user{
+background:#007bff;
+}
+
+.user:hover{
+background:#0056b3;
+transform:scale(1.05);
+}
+
+.admin{
+background:#28a745;
+}
+
+.admin:hover{
+background:#1e7e34;
+transform:scale(1.05);
+}
+
+.footer{
+margin-top:30px;
+background:#111;
+padding:20px;
+text-align:center;
+font-size:14px;
+color:#bbb;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">Cop Friendly e-Seva</div>
+
+<div class="nav">
+<a href="#">Home</a>
+<a href="register.html">Register</a>
+<a href="login.html">Login</a>
+<a href="admin_login.php">Admin</a>
+</div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+<div class="left">
+
+<h1>Smart Police Citizen Portal</h1>
+
+<p>
+Cop Friendly e-Seva is a digital platform that allows citizens to
+register complaints, upload evidence, and track complaint status
+online. This system helps improve communication between citizens
+and the police department, ensuring faster response and improved
+public safety.
+</p>
+
+</div>
+
+
+<div class="right">
+
+<div class="container">
+
+<h2>Portal Access</h2>
+
+<a href="register.html" class="btn user">User Register</a>
+<a href="login.html" class="btn user">User Login</a>
+<a href="admin_login.php" class="btn admin">Police Admin Login</a>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+© 2026 Cop Friendly e-Seva | Digital Police Service Portal
+
+</div>
+
+</body>
+</html>

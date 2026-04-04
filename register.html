@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cop Friendly e-Seva - Register</title>
+
+<style>
+
+/* GLOBAL */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* BODY */
+
+body{
+background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 60px;
+background:#111;
+box-shadow:0 4px 10px rgba(0,0,0,0.5);
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#ffffff;
+}
+
+.nav a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-size:16px;
+transition:0.3s;
+}
+
+.nav a:hover{
+color:#0ca678;
+}
+
+/* MAIN */
+
+.main{
+display:flex;
+justify-content:center;
+align-items:center;
+height:85vh;
+}
+
+/* REGISTER CONTAINER */
+
+.container{
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(10px);
+padding:45px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+width:380px;
+text-align:center;
+}
+
+.container h2{
+margin-bottom:25px;
+}
+
+/* INPUT */
+
+input, select{
+width:100%;
+padding:11px;
+margin:8px 0;
+border-radius:6px;
+border:none;
+outline:none;
+font-size:14px;
+}
+
+/* PASSWORD */
+
+.password-box{
+position:relative;
+}
+
+.password-box input{
+width:100%;
+padding-right:60px;
+}
+
+.eye{
+position:absolute;
+right:15px;
+top:50%;
+transform:translateY(-50%);
+cursor:pointer;
+font-size:14px;
+color:black;
+}
+
+/* BUTTON */
+
+.btn{
+margin-top:20px;
+padding:12px 30px;
+background:linear-gradient(to right,#007BFF,#00c6ff);
+color:white;
+border:none;
+border-radius:25px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+width:100%;
+}
+
+.btn:hover{
+transform:scale(1.05);
+background:linear-gradient(to right,#0056b3,#0099cc);
+}
+
+
+/* FOOTER */
+
+.footer{
+background:#111;
+padding:15px;
+text-align:center;
+font-size:14px;
+color:#bbb;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="logo">Cop Friendly e-Seva</div>
+
+<div class="nav">
+<a href="index.html">Home</a>
+<a href="register.html">Register</a>
+<a href="login.html">Login</a>
+<a href="admin_login.php">Admin</a>
+</div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="container">
+
+<h2>User Registration</h2>
+
+<form action="register.php" method="post">
+
+<input type="text" name="name" placeholder="Full Name" required>
+
+<input type="email" name="email" placeholder="Email Address" required>
+
+<input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="Mobile Number" required>
+
+<div class="password-box">
+<input type="password" id="password" name="password" placeholder="Password" required>
+<span class="eye" onclick="togglePassword()">Show</span>
+</div>
+
+<select name="role">
+<option value="citizen">Citizen</option>
+<option value="police">Police</option>
+</select>
+
+<button type="submit" class="btn">Create Account</button>
+
+</form>
+
+
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+© 2026 Cop Friendly e-Seva | Digital Police Service Portal
+
+</div>
+
+<script>
+
+function togglePassword(){
+
+var pass=document.getElementById("password");
+
+if(pass.type==="password"){
+pass.type="text";
+}else{
+pass.type="password";
+}
+
+}
+
+</script>
+
+</body>
+</html>
