@@ -1,203 +1,684 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Cop Friendly e-Seva</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cop Friendly e-Seva | Smart Police Citizen Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-
-/* GLOBAL */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+:root {
+  --navy:       #020b18;
+  --navy2:      #041225;
+  --navy3:      #071e38;
+  --blue:       #0ea5e9;
+  --blue-glow:  rgba(14,165,233,0.18);
+  --amber:      #f59e0b;
+  --amber-glow: rgba(245,158,11,0.15);
+  --green:      #10b981;
+  --red:        #ef4444;
+  --text:       #e2e8f0;
+  --muted:      #64748b;
+  --border:     rgba(14,165,233,0.15);
+  --card-bg:    rgba(4,18,37,0.85);
 }
 
-body{
-background:linear-gradient(to right, #0f2027, #203a43, #2c5364);
-color:white;
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  font-size: 15px;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* HEADER */
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 60px;
-background:#000000;
-box-shadow:0 4px 10px rgba(0, 0, 0, 0.53);
+/* ---- GRID BACKGROUND ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-color:#ffffff;
+/* ---- RADIAL GLOW ---- */
+.bg-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-1 { width: 600px; height: 600px; background: rgba(14,165,233,0.08); top: -100px; left: -100px; }
+.glow-2 { width: 500px; height: 500px; background: rgba(245,158,11,0.06); bottom: -100px; right: -50px; }
+
+/* ---- NAVBAR ---- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+  height: 68px;
+  background: rgba(2,11,24,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-.nav a{
-color:white;
-text-decoration:none;
-margin-left:25px;
-font-size:16px;
-transition:0.3s;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: white;
+  text-decoration: none;
 }
 
-.nav a:hover{
-color:#0ca678;
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--blue), #0284c7);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(14,165,233,0.35);
 }
 
-/* MAIN SECTION */
+.logo span { color: var(--blue); }
 
-.main{
-display:flex;
-height:80vh;
-align-items:center;
-padding:60px;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* LEFT */
-
-.left{
-width:55%;
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 7px;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
 }
 
-.left h1{
-font-size:50px;
-margin-bottom:20px;
+.nav-links a:hover {
+  color: white;
+  background: rgba(255,255,255,0.06);
 }
 
-.left p{
-font-size:18px;
-color:#dcdcdc;
-line-height:1.6;
+.nav-links a.active {
+  color: var(--blue);
+  background: var(--blue-glow);
 }
 
-/* RIGHT LOGIN BOX */
-
-.right{
-width:45%;
-display:flex;
-justify-content:center;
-}
-.container{
-width:350px;
-padding:40px;
-background:rgba(255,255,255,0.12);
-backdrop-filter:blur(10px);
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
-text-align:center;
+.nav-cta {
+  background: linear-gradient(135deg, var(--blue), #0284c7) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 16px rgba(14,165,233,0.3);
 }
 
-.container h2{
-margin-bottom:25px;
+.nav-cta:hover {
+  box-shadow: 0 0 24px rgba(14,165,233,0.5) !important;
+  transform: translateY(-1px);
 }
 
-.btn{
-display:block;
-padding:12px;
-margin:12px 0;
-border-radius:8px;
-text-decoration:none;
-color:white;
-font-size:16px;
-transition:0.3s;
+/* ---- HERO ---- */
+.hero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 60px;
+  min-height: calc(100vh - 68px);
+  padding: 80px 60px;
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-.user{
-background:#007bff;
+/* Left */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue-glow);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
 }
 
-.user:hover{
-background:#0056b3;
-transform:scale(1.05);
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--blue);
+  animation: pulse 2s infinite;
 }
 
-.admin{
-background:#28a745;
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.8); }
 }
 
-.admin:hover{
-background:#1e7e34;
-transform:scale(1.05);
+.hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+  color: white;
+  margin-bottom: 22px;
+  animation: fadeUp 0.6s 0.1s ease both;
 }
 
-.footer{
-margin-top:30px;
-background:#111;
-padding:20px;
-text-align:center;
-font-size:14px;
-color:#bbb;
+.hero-title .accent { color: var(--blue); }
+.hero-title .accent2 { color: var(--amber); }
+
+.hero-desc {
+  font-size: 16px;
+  color: #94a3b8;
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: 40px;
+  font-weight: 300;
+  animation: fadeUp 0.6s 0.2s ease both;
 }
 
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  margin-bottom: 44px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.stat { border-left: 2px solid var(--border); padding-left: 16px; }
+.stat-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+}
+.stat-lbl { font-size: 12px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, var(--blue), #0284c7);
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s;
+  box-shadow: 0 0 24px rgba(14,165,233,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 36px rgba(14,165,233,0.5);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+}
+
+/* Right – portal card */
+.portal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 36px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(14,165,233,0.08);
+  animation: fadeUp 0.6s 0.2s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+}
+
+.portal-heading {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.portal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.portal-section {
+  margin-bottom: 20px;
+}
+
+.portal-section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.portal-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.portal-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 11px;
+  text-decoration: none;
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+  transition: all 0.22s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.portal-btn:last-child { margin-bottom: 0; }
+
+.portal-btn:hover {
+  transform: translateX(4px);
+  background: rgba(14,165,233,0.08);
+  border-color: rgba(14,165,233,0.3);
+  color: white;
+}
+
+.portal-btn.green:hover {
+  background: rgba(16,185,129,0.08);
+  border-color: rgba(16,185,129,0.3);
+}
+
+.portal-btn-icon {
+  width: 38px; height: 38px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.icon-blue  { background: rgba(14,165,233,0.15); }
+.icon-green { background: rgba(16,185,129,0.15); }
+.icon-amber { background: rgba(245,158,11,0.15); }
+
+.portal-btn-text { flex: 1; }
+.portal-btn-text strong { display: block; font-size: 14px; color: white; font-weight: 600; }
+.portal-btn-text span { font-size: 12px; color: var(--muted); }
+.portal-btn-arrow { color: var(--muted); font-size: 14px; transition: transform 0.2s; }
+.portal-btn:hover .portal-btn-arrow { transform: translateX(3px); color: var(--blue); }
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* ---- FEATURES ---- */
+.features {
+  position: relative;
+  z-index: 1;
+  padding: 100px 60px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.section-label {
+  text-align: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--blue);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.section-desc {
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 500px;
+  margin: 0 auto 56px;
+  line-height: 1.7;
+}
+
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.feat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.feat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), transparent);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.feat-card:hover {
+  border-color: rgba(14,165,233,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
+}
+
+.feat-card:hover::after { opacity: 1; }
+
+.feat-icon {
+  width: 48px; height: 48px;
+  background: var(--blue-glow);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.feat-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.feat-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  position: relative;
+  z-index: 1;
+  background: rgba(2,11,24,0.95);
+  border-top: 1px solid var(--border);
+  padding: 24px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+footer a { color: var(--blue); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; padding: 60px 30px; }
+  .portal-card { max-width: 480px; margin: 0 auto; }
+  .feat-grid { grid-template-columns: repeat(2,1fr); }
+  .navbar { padding: 0 30px; }
+  .hero-stats { gap: 24px; }
+}
+
+@media(max-width: 640px) {
+  .feat-grid { grid-template-columns: 1fr; }
+  .hero-btns { flex-direction: column; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
 </style>
-
 </head>
-
 <body>
 
-<!-- HEADER -->
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
 
-<div class="header">
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">🚔</div>
+    Cop Friendly <span>&nbsp;e-Seva</span>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="register.html">Register</a>
+    <a href="login.html">Login</a>
+    <a href="admin_login.php" class="nav-cta">Admin Portal</a>
+  </div>
+</nav>
 
-<div class="logo">Cop Friendly e-Seva</div>
+<!-- HERO -->
+<section class="hero">
 
-<div class="nav">
-<a href="#">Home</a>
-<a href="register.html">Register</a>
-<a href="login.html">Login</a>
-<a href="admin_login.php">Admin</a>
-</div>
+  <!-- Left -->
+  <div class="hero-left">
+    <div class="hero-badge">🛡️ &nbsp;Serving &amp; Protecting Since 2024</div>
 
-</div>
+    <h1 class="hero-title">
+      Smart Police<br>
+      <span class="accent">Citizen</span> Portal<br>
+      <span class="accent2">e-Seva</span>
+    </h1>
 
-<!-- MAIN CONTENT -->
+    <p class="hero-desc">
+      A unified digital platform connecting citizens with the police department.
+      Register complaints, upload evidence, track status in real-time and access
+      AI-powered safety tools — all from one secure interface.
+    </p>
 
-<div class="main">
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-val">24/7</div>
+        <div class="stat-lbl">Always Online</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">AI</div>
+        <div class="stat-lbl">Smart Detection</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Secure &amp; Private</div>
+      </div>
+    </div>
 
-<div class="left">
+    <div class="hero-btns">
+      <a href="register.html" class="btn-primary">🚀 Get Started</a>
+      <a href="login.html"    class="btn-outline">🔐 Sign In</a>
+    </div>
+  </div>
 
-<h1>Smart Police Citizen Portal</h1>
+  <!-- Right -->
+  <div class="hero-right">
+    <div class="portal-card">
+      <div class="portal-heading">Portal Access</div>
+      <div class="portal-sub">Select your access type to continue</div>
 
-<p>
-Cop Friendly e-Seva is a digital platform that allows citizens to
-register complaints, upload evidence, and track complaint status
-online. This system helps improve communication between citizens
-and the police department, ensuring faster response and improved
-public safety.
-</p>
+      <div class="portal-section">
+        <div class="portal-section-label">Citizen Access</div>
 
-</div>
+        <a href="register.html" class="portal-btn">
+          <div class="portal-btn-icon icon-blue">📝</div>
+          <div class="portal-btn-text">
+            <strong>Create Account</strong>
+            <span>Register as a new citizen</span>
+          </div>
+          <span class="portal-btn-arrow">→</span>
+        </a>
 
+        <a href="login.html" class="portal-btn">
+          <div class="portal-btn-icon icon-blue">🔑</div>
+          <div class="portal-btn-text">
+            <strong>Citizen Login</strong>
+            <span>Access your complaint dashboard</span>
+          </div>
+          <span class="portal-btn-arrow">→</span>
+        </a>
+      </div>
 
-<div class="right">
+      <div class="divider"></div>
 
-<div class="container">
+      <div class="portal-section">
+        <div class="portal-section-label">Authority Access</div>
 
-<h2>Portal Access</h2>
+        <a href="admin_login.php" class="portal-btn green">
+          <div class="portal-btn-icon icon-amber">🛡️</div>
+          <div class="portal-btn-text">
+            <strong>Police Admin Login</strong>
+            <span>Command &amp; control panel</span>
+          </div>
+          <span class="portal-btn-arrow">→</span>
+        </a>
+      </div>
 
-<a href="register.html" class="btn user">User Register</a>
-<a href="login.html" class="btn user">User Login</a>
-<a href="admin_login.php" class="btn admin">Police Admin Login</a>
+      <div style="margin-top:24px; padding:14px 16px; background:rgba(14,165,233,0.06); border:1px solid rgba(14,165,233,0.15); border-radius:10px; display:flex; gap:10px; align-items:flex-start;">
+        <span style="font-size:16px;">🔒</span>
+        <p style="font-size:12px; color:#64748b; line-height:1.5;">All sessions are encrypted and protected. Citizen data is confidential and handled per government privacy guidelines.</p>
+      </div>
+    </div>
+  </div>
 
+</section>
 
-</div>
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">Why e-Seva</div>
+  <div class="section-title">Built for Safer Communities</div>
+  <div class="section-desc">Every feature is purpose-built to bridge the gap between citizens and law enforcement.</div>
 
-</div>
-
-</div>
-
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">📋</div>
+      <div class="feat-title">Online Complaint Filing</div>
+      <div class="feat-desc">Register complaints digitally with evidence uploads. No need to visit the station — file from anywhere, anytime.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🤖</div>
+      <div class="feat-title">AI Crime Classification</div>
+      <div class="feat-desc">Auto-detect complaint type using AI. Smart priority assignment ensures urgent cases get immediate attention.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📍</div>
+      <div class="feat-title">Live Crime Hotspot Map</div>
+      <div class="feat-desc">Interactive map with K-Means clustering reveals crime hotspots. Patrol deployment is data-driven and strategic.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📈</div>
+      <div class="feat-title">Predictive Trend Analysis</div>
+      <div class="feat-desc">Machine learning models forecast crime patterns to help authorities preemptively allocate resources.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💬</div>
+      <div class="feat-title">Direct Police Chat</div>
+      <div class="feat-desc">Communicate directly with the police station through the secure in-app messaging system.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🚨</div>
+      <div class="feat-title">Fraud Detection</div>
+      <div class="feat-desc">AI-powered fraud and fake complaint detection keeps the system clean and trustworthy for genuine cases.</div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
-
-<div class="footer">
-
-© 2026 Cop Friendly e-Seva | Digital Police Service Portal
-
-</div>
+<footer>
+  <span>© 2026 Cop Friendly e-Seva &nbsp;|&nbsp; Digital Police Service Portal</span>
+  <span>Built for <a href="#">Tamil Nadu Police</a> &nbsp;·&nbsp; Secure &amp; Confidential</span>
+</footer>
 
 </body>
 </html>

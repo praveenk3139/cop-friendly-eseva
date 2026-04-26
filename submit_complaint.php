@@ -1,33 +1,63 @@
 <?php
 session_start();
-include "db.php"; // Database connection
+include "db.php";
 
-// Check login
+// ✅ Check login
 if(!isset($_SESSION['user_id'])){
-    header("Location: login.php");
+    header("Location: login.html");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
-// Get form data
+// ✅ Get form data
 $type = mysqli_real_escape_string($conn, $_POST['type']);
 $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-// Insert complaint
-$sql = "INSERT INTO complaints (user_id, subject, description, status, created_at)
-        VALUES ('$user_id', '$type', '$description', 'Pending', NOW())";
+/* =========================
+   ✅ STEP 4: AUTO PRIORITY FUNCTION
+========================= */
+function getPriority($text){
 
-if(mysqli_query($conn,$sql)){
+    $text = strtolower($text);
 
-    // Get last inserted complaint id
+    $high = ["murder", "theft", "kidnap", "attack", "rape", "robbery"];
+    $medium = ["fraud", "harassment", "threat", "abuse", "scam"];
+
+    foreach($high as $word){
+        if(strpos($text, $word) !== false){
+            return "High";
+        }
+    }
+
+    foreach($medium as $word){
+        if(strpos($text, $word) !== false){
+            return "Medium";
+        }
+    }
+
+    return "Low";
+}
+
+// ✅ Get priority automatically
+$priority = getPriority($description);
+
+/* =========================
+   ✅ INSERT COMPLAINT
+========================= */
+$sql = "INSERT INTO complaints 
+        (user_id, complaint_type, description, priority, status, created_at)
+        VALUES 
+        ('$user_id', '$type', '$description', '$priority', 'Pending', NOW())";
+
+if(mysqli_query($conn, $sql)){
+
     $complaint_id = mysqli_insert_id($conn);
 
-    // redirect to success page with id
     header("Location: complaint_success.php?id=".$complaint_id);
     exit();
 
 }else{
-    echo "Error : ".mysqli_error($conn);
+    echo "Error: " . mysqli_error($conn);
 }
 ?>
