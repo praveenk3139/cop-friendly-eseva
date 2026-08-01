@@ -1,7 +1,7 @@
 <?php
 include "db.php";
 
-$apiKey = getenv('GOOGLE_MAPS_API_KEY') ?: "AIzaSyBtWOQiw_Er8RjAfvx6-x9ut4V0bZ7DNJk";
+$apiKey = getenv('GOOGLE_MAPS_API_KEY') ?: "AIzaSyBOEHduNb1cqprsZMdSu_lxCnogqmLrc4A";
 
 $result = mysqli_query($conn, "
 SELECT complaint_id, subject, description, latitude, longitude, status, priority, escalated, is_suspicious
